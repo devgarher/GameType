@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dead Type: Zombie Survival Typing Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="game-wrapper">
+    <!-- Top HUD Bar -->
+    <header id="hud-bar">
+      <!-- Health Section -->
+      <div id="health-container">
+        <span class="hud-label">BARRICADE HP</span>
+        <div id="health-bar-bg">
+          <div id="health-fill"></div>
+        </div>
+        <span id="health-text">100 / 100</span>
+      </div>
+
+      <!-- Wave & Score Info -->
+      <div class="hud-group">
+        <div class="hud-item">
+          <span class="hud-label">STAGE</span>
+          <span id="wave-display" class="hud-val">WAVE 1</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">SCORE</span>
+          <span id="score-display" class="hud-val">0</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">COMBO</span>
+          <span id="combo-display" class="hud-val combo-val">0x</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">SPEED</span>
+          <span id="wpm-display" class="hud-val">0 WPM</span>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="hud-group">
+        <button id="sound-toggle" class="hud-btn" title="Toggle Sound">🔊 Sound: ON</button>
+        <button id="pause-btn" class="hud-btn" title="Pause Game (ESC)">⏸ Pause</button>
+      </div>
+    </header>
+
+    <!-- Main Game Canvas Container -->
+    <main id="canvas-container">
+      <canvas id="gameCanvas"></canvas>
+
+      <!-- Wave Announcement Banner -->
+      <div id="wave-banner" class="hidden"></div>
+
+      <!-- Start / Title Screen Overlay -->
+      <div id="start-screen" class="overlay">
+        <h1 class="game-title">DEAD TYPE</h1>
+        <p class="game-subtitle">TYPE THE ENGLISH WORDS TO SHOOT THE HORDE</p>
+
+        <div class="info-cards">
+          <div class="info-card">
+            <div class="zombie-preview">🧟</div>
+            <h4>Walkers & Runners</h4>
+            <p>Type the starting letter to lock on, then finish typing the word to blast them!</p>
+          </div>
+          <div class="info-card">
+            <div class="zombie-preview">👹</div>
+            <h4>Tanks & Bosses</h4>
+            <p>Encountered in deeper waves with longer English vocabulary and massive HP.</p>
+          </div>
+          <div class="info-card">
+            <div class="zombie-preview">⚡</div>
+            <h4>Combo & Speed</h4>
+            <p>Type without missing keystrokes to rack up high combo multipliers and boost your WPM!</p>
+          </div>
+        </div>
+
+        <button id="start-btn" class="btn-primary">PRESS ENTER OR CLICK TO START</button>
+      </div>
+
+      <!-- Game Over Overlay -->
+      <div id="game-over-screen" class="overlay hidden">
+        <div class="gameover-box">
+          <h2 class="game-title" style="font-size: 54px; margin-bottom: 4px;">THE HORDE OVERRAN YOU</h2>
+          <div id="final-rank" class="rank-badge">SURVIVOR</div>
+
+          <div class="stats-grid">
+            <div class="stat-box">
+              <span class="stat-label">FINAL SCORE</span>
+              <span id="final-score" class="stat-num">0</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">ZOMBIES KILLED</span>
+              <span id="final-kills" class="stat-num">0</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">TYPING SPEED</span>
+              <span id="final-wpm" class="stat-num">0 WPM</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">ACCURACY</span>
+              <span id="final-accuracy" class="stat-num">0%</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">WAVE REACHED</span>
+              <span id="final-wave" class="stat-num">1</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">MAX COMBO</span>
+              <span id="final-combo" class="stat-num">0</span>
+            </div>
+          </div>
+
+          <button id="restart-btn" class="btn-primary">PLAY AGAIN (ENTER)</button>
+        </div>
+      </div>
+
+      <!-- Pause Overlay -->
+      <div id="pause-overlay" class="overlay hidden">
+        <h2 class="game-title" style="font-size: 50px;">GAME PAUSED</h2>
+        <p style="color: #a4bccd; margin-bottom: 20px;">Press ESC or click below to resume defending the barricade.</p>
+        <button onclick="window.game.togglePause()" class="btn-primary">RESUME SURVIVAL</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="words.js"></script>
+  <script src="audio.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
